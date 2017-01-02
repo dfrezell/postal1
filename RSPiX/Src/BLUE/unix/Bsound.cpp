@@ -84,6 +84,11 @@ extern short rspSetSoundOutMode(				// Returns 0 if successfull, non-zero otherw
         return -1;
     }
 
+    desired.freq = lSampleRate;
+    desired.channels = lChannels;
+    desired.callback = sdl_audio_callback;
+    desired.userdata = (void *) callback;
+
     // Fragment sizes I used for Serious Sam...seem to work well...
     if (desired.freq <= 11025)
         desired.samples = 512;
@@ -97,11 +102,6 @@ extern short rspSetSoundOutMode(				// Returns 0 if successfull, non-zero otherw
 #ifdef __ANDROID__
     desired.samples = 2048;
 #endif
-
-    desired.freq = lSampleRate;
-    desired.channels = lChannels;
-    desired.callback = sdl_audio_callback;
-    desired.userdata = (void *) callback;
 
     cur_buf_time = lCurBufferTime;
     max_buf_time = lMaxBufferTime;
